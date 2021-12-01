@@ -1,6 +1,7 @@
 # Advent of Code 2021
 
-Code + writeups for AoC 2021!
+Code + writeups for AoC 2021!  Use the bullet-list icon to 
+navigate to each day/part.  
 
 ## Day 1
 
