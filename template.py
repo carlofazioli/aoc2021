@@ -12,15 +12,11 @@ input_data = input_data.splitlines()
 # input_data = list(map(int, input_data))
 
 
-def main():
-    part = 1
+part = 1
 
-    # Code here
+# Code here
 
-    answer = None
-    print(answer)
-    # submit(answer, part)
+answer = None
+print(answer)
+# submit(answer, part)
 
-
-if __name__ == '__main__':
-    main()
