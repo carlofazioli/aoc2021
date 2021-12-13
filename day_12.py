@@ -46,25 +46,67 @@ print(answer)
 dt = datetime.now() - t1
 print(dt.total_seconds())
 
+# t1 = datetime.now()
+# pending = [['start']]
+# completed = []
+# while pending:
+#     path = pending.pop(0)
+#     smalls = [c for c in path if c.islower()]
+#     has_small_cave_twice = len(smalls) > len(set(smalls))
+#     last = path[-1]
+#     neighbors = caves[path[-1]]
+#     for n in neighbors:
+#         if n == 'end':
+#             completed.append(path + [n])
+#         elif n == 'start':
+#             continue
+#         elif n.islower() and n in path and has_small_cave_twice:
+#             continue
+#         else:
+#             pending.append(path + [n])
+# answer = len(completed)
+# print(answer)
+# dt = datetime.now() - t1
+# print(dt.total_seconds())
+
+
 t1 = datetime.now()
-pending = [['start']]
-completed = []
-while pending:
-    path = pending.pop(0)
-    smalls = [c for c in path if c.islower()]
-    has_small_cave_twice = len(smalls) > len(set(smalls))
-    last = path[-1]
-    neighbors = caves[path[-1]]
-    for n in neighbors:
-        if n == 'end':
-            completed.append(path + [n])
-        elif n == 'start':
-            continue
-        elif n.islower() and n in path and has_small_cave_twice:
-            continue
-        else:
-            pending.append(path + [n])
-answer = len(completed)
+answer = 0
+state = ('start', {'start'})
+queue = collections.deque([state])
+while queue:
+    loc, prohib = queue.popleft()
+    if loc == 'end':
+        answer += 1
+        continue
+    for n in caves[loc]:
+        if n not in prohib:
+            new_prohib = set(prohib)
+            if n.islower():
+                new_prohib.add(n)
+            queue.append((n, new_prohib))
+print(answer)
+dt = datetime.now() - t1
+print(dt.total_seconds())
+
+t1 = datetime.now()
+answer = 0
+state = ('start', {'start'}, None)
+queue = collections.deque([state])
+while queue:
+    loc, prohib, twice = queue.popleft()
+    if loc == 'end':
+        answer += 1
+        continue
+    for n in caves[loc]:
+        if n not in prohib:
+            new_prohib = set(prohib)
+            if n.islower():
+                new_prohib.add(n)
+            queue.append((n, new_prohib, None))
+        elif twice is None and n != 'start':
+            queue.append((n, prohib, n))
+
 print(answer)
 dt = datetime.now() - t1
 print(dt.total_seconds())
