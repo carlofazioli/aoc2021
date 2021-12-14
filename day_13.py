@@ -9,10 +9,7 @@ points, folds = input_data.split('\n\n')
 points = points.splitlines()
 folds = folds.splitlines()
 
-locs = set()
-for point in points:
-    x, y = list(map(int, point.split(',')))
-    locs.add((x, y))
+locs = set(tuple(map(int, p.split(','))) for p in points)
 
 for f in folds:
     fold_loc = f.split(' ')[-1]
@@ -20,19 +17,19 @@ for f in folds:
     val = int(val)
     new = set()
     if d == 'x':
-        for p in locs:
-            if p[0] < val:
-                new.add(p)
+        for x, y in locs:
+            if x < val:
+                new.add((x, y))
             else:
-                x = 2*val - p[0]
-                new.add((x, p[1]))
+                x = 2*val - x
+                new.add((x, y))
     if d == 'y':
-        for p in locs:
-            if p[1] < val:
-                new.add(p)
+        for x, y in locs:
+            if y < val:
+                new.add((x, y))
             else:
-                y = 2*val - p[1]
-                new.add((p[0], y))
+                y = 2*val - y
+                new.add((x, y))
     locs = new
 
 X = max(x for x, y in locs)
